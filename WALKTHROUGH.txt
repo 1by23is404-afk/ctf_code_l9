@@ -1,0 +1,49 @@
+CTF WALKTHROUGH: CODE 19 ERROR FIX
+===================================================
+
+CHALLENGE GOAL: 
+Fix the "Code 19" driver error by removing the corrupt file and recovering the system to unlock the final flag.
+
+---------------------------------------------------
+STEP-BY-STEP GUIDE:
+
+1. INITIAL ACCESS
+   - Open 'index.html' in your browser.
+   - You will see a "SYSTEM ERROR: CODE 19" boot screen.
+   - Click the "ACCESS TERMINAL" button to enter the recovery console.
+
+2. INVESTIGATION (Virtual Keyboard Only)
+   - Your physical keyboard is LOCKED. You must use the on-screen virtual keyboard for all inputs in this phase.
+   - The terminal simulates a directory at 'C:\Windows\System32\drivers'.
+   - Type 'ls' (files are case-sensitive usually, but here inputs handle basics) and press the virtual 'ENTER' key.
+   - You will see a list of 20 driver files (e.g., 'kernelb.sys', 'hal.dll', etc.).
+
+3. FINDING THE CORRUPT FILE
+   - One of these files is "corrupt" and contains the verification code.
+   - You need to inspect the files one by one (or randomly).
+   - Type 'cat [filename]' to read a file. 
+     Example: 'cat drivers.cfg'
+   - Normal files will say: "binary_data_ok", "driver_signature_valid", or "system_integrity_verified".
+   - The CORRUPT file will contain an error log with the first flag: 
+     "ERROR_LOG: ZB{k3y_b0ard_uNl0k3d}"
+   - NOTE: The corrupt file simulates being different every time you reload the page (randomized), so you must check files to find it.
+
+4. REPAIRING THE SYSTEM
+   - Once you identify the file containing the flag (e.g., let's say it was 'input.inf'), you must delete it.
+   - Type 'rm [filename]' using the virtual keyboard.
+     Example: 'rm input.inf'
+   - Press 'ENTER'.
+
+5. UNLOCK & VERIFICATION
+   - If you deleted the correct file, the terminal will say "SUCCESS: Corrupt driver removed."
+   - The virtual keyboard restriction is now lifted. Your PHYSICAL keyboard now works.
+   - A "SYSTEM RESTORED" modal will appear asking for a verification code.
+   - You must type the code you found inside the corrupt file earlier.
+   - Code to enter: ZB{k3y_b0ard_uNl0k3d}
+   - Click 'VERIFY'.
+
+6. FINAL FLAG
+   - Upon successful verification, the final flag is revealed:
+     ZB{c0d3_l9_3rr04_f1x3d}
+
+===================================================
